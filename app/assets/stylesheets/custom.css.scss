@@ -1,5 +1,22 @@
 @import "bootstrap";
 
 body{
-  background-color:#ededed;
+  background-color:#f8f8f8;
+}
+
+.footer-bg-color{
+  background-color: #ededed;
+}
+
+.custom-btn-width{
+  width: 256px !important;
+}
+
+.fixed{
+  width: 356px;
+}
+
+.content {
+  min-height: calc(100vh - 72px);
+  /* 72px footer */
 }
