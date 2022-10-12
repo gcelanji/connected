@@ -39,7 +39,19 @@ footer {
   max-width: 1140px;
 }
 
+.feed-container{
+  max-width: 768px;
+}
+
+
 nav{
   background-color:#4B0082;
+  color: white;
+}
+
+.btn-outline-custom{
+  width: 256px;
+  height: fit-content;
+  background-color: #4B0082;
   color: white;
 }
