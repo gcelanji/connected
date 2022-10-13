@@ -49,9 +49,24 @@ nav{
   color: white;
 }
 
-.btn-outline-custom{
-  width: 256px;
-  height: fit-content;
-  background-color: #4B0082;
-  color: white;
+.btn-main-custom {
+  background-color:#4B0082;
+  color:white;
+  transition-duration: 0.4s;
+}
+
+.btn-main-custom:hover {
+  background-color:#7300c5;
+  color:white;
+  transition-duration: 0.4s;
+}
+
+.btn-secondary-custom {
+  transition-duration: 0.4s;
+}
+
+.btn-secondary-custom:hover {
+  background-color:#4B0082;
+  color:white;
+  transition-duration: 0.4s;
 }
