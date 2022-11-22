@@ -13,6 +13,9 @@
   <body>
     <!--<p class="notice"><%# notice %></p>-->
     <!--<p class="alert"><%# alert %></p>-->
+    <% if flash[:alert] %>
+      <%= flash[:alert] %>
+    <% end %>
     <%= render 'layouts/navbar' if user_signed_in? %>
     <%= yield %>
     <%= render 'layouts/footer' %>
