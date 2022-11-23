@@ -1,7 +1,9 @@
 <div class="mt-3">
   <%= form_with(model: post) do |f| %>
-    <%= f.text_area :content, class: "w-100" %>
-    <br />
-    <%= f.submit 'Post' %>
+    <%= text_area("post", "content", options = {class: "w-100 form-control", rows: "5"}) %>
+    <div class="d-flex justify-content-between mt-2">
+      <%= select("post", "visibility", choices = Post.visibilities.keys.to_a, options = {}, html_options = {class: "form-select w-25"}) %>
+      <%= f.submit(value = "Post", options = {class: "btn btn-main-custom custom-btn-width-100"}) %>
+    </div>
   <% end %>
 </div>
