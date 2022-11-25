@@ -1,24 +1,5 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Connected is a social media web application. You can create an account, log in, add connections, message your connections and share posts with them. It was developed using Rails 7, sqlite3 and Bootsrap for the styling.
+It was developed for educational purposes.
+If you would like to run the application (assuming you already have installed the required gems) you can clone or download the repository and while on the root folder of the app you can run 'rails server' for the server to start running.
