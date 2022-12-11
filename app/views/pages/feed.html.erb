@@ -1,16 +1,4 @@
 <div class="feed-container mx-auto mt-5">
   <%= link_to "Share a post!", new_post_path, class: "btn btn-sm btn-main-custom w-100 mb-2" %>
-  <% @posts.each do |post| %>
-    <div class="my-3 p-3 bg-white shadow">
-      <div class="d-flex">
-        <h5 class="me-2"><%= post.user.full_name %></h5>
-        <small><%= time_ago_in_words(post.updated_at) %></small>
-        <div class="ms-auto">
-          <%= image_tag("icons8-pencil-64.png", options = {class: "action-image"}) %>
-          <%= image_tag("icons8-remove-96.png", options = {class: "action-image"}) %>
-        </div>
-      </div>
-      <p class="content mt-3"><%= post.content %><p>
-    </div>
-  <% end %>
+  <%= render 'posts', posts: @posts %> 
 </div>
