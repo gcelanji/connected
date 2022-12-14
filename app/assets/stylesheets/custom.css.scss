@@ -39,8 +39,10 @@ footer {
   max-width: 1140px;
 }
 
-.feed-container{
+.app-container{
   max-width: 768px;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 nav{
@@ -77,6 +79,11 @@ nav{
 .action-image{
   height: 28px;
   width: 28px;
+}
+
+.settings-image{
+  height: 24px;
+  width: 24px;
 }
 
 .destroy_button {

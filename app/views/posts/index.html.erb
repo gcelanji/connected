@@ -1,3 +1,9 @@
-<div class="feed-container mx-auto mt-5">
-  <%= render 'pages/posts', posts: @posts %> 
+<div class="app-container mx-auto mt-5">
+  <div class="d-flex">
+    <h5 class="me-2"><%=current_user.full_name %></h5>
+    <%= link_to edit_user_registration_path, title: "Settings" do %>
+        <%= image_tag("icons8-gear-96.png", options = {class: "settings-image"}) %>
+    <% end %>
+  </div>
+  <%= render 'pages/posts', posts: @posts %>
 </div>
