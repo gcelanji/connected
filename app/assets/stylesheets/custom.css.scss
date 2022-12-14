@@ -48,6 +48,10 @@ nav{
   color: white;
 }
 
+.posts-container-height {
+  height: 256px;
+}
+
 .btn-main-custom {
   background-color:#4B0082;
   color:white;
@@ -73,4 +77,11 @@ nav{
 .action-image{
   height: 28px;
   width: 28px;
+}
+
+.destroy_button {
+    background: url(../images/icons8-remove-96.png) #f2efa8 no-repeat 10px 6px;
+    text-indent:30px;
+    display:block;
+    cursor: pointer;
 }

@@ -1,5 +1,5 @@
 <% posts.each do |post| %>
-  <div class="my-3 p-3 bg-white shadow">
+  <div class="my-3 p-3 bg-white shadow posts-container-height">
     <div class="d-flex">
       <h5 class="me-2"><%= post.user.full_name %></h5>
       <small><%= time_ago_in_words(post.updated_at) %></small>
@@ -8,7 +8,7 @@
           <%= link_to edit_post_path(post) do %>
               <%= image_tag("icons8-pencil-64.png", options = {class: "action-image"}) %>
           <% end %>
-          <%= link_to post_path(post) do %>
+          <%= link_to post_path(post), method: :delete, data: { confirm: "Are you sure you want to delete your post?" } do %>
             <%= image_tag("icons8-remove-96.png", options = {class: "action-image"}) %>
           <% end %>
         </div>

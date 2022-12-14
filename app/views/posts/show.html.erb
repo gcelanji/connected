@@ -1,7 +1,3 @@
-<%= content_tag :div, class: "container my-3 p-3 bg-white shadow", style: "height: 256px;" do %>
-  <div class="d-flex">
-    <h5 class="me-2"><%= @post.user.full_name %></h5>
-    <small><%= time_ago_in_words(@post.updated_at) %></small>
-  </div>
-  <%= @post.content %>
-<% end %>
+<div class="feed-container mx-auto mt-5">
+  <%= render @post %>
+</div>
