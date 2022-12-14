@@ -3,7 +3,11 @@
     <%= text_area("post", "content", options = {class: "w-100 form-control", rows: "5"}) %>
     <div class="d-flex justify-content-between mt-2">
       <%= select("post", "visibility", choices = Post.visibilities.keys.to_a, options = {}, html_options = {class: "form-select w-25"}) %>
-      <%= f.submit(value = "Post", options = {class: "btn btn-main-custom custom-btn-width-100"}) %>
+      <% if f.object.new_record? %>
+        <%= f.submit(value = "Post", options = {class: "btn btn-main-custom custom-btn-width-100"}) %>
+      <% else %>
+        <%= f.submit(value = "Update", options = {class: "btn btn-main-custom custom-btn-width-100"}) %>
+      <% end %>
     </div>
   <% end %>
 </div>

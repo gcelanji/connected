@@ -32,8 +32,8 @@ class PostsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @friend.update(post_params)
-        format.html { redirect_to posts_path, notice: "Post was successfully updated." }
+      if @post.update(post_params)
+        format.html { redirect_to post_path(@post), notice: "Post was successfully updated." }
         format.json { render :index, status: :ok }
       else
         format.html { render :edit, status: :unprocessable_entity }
