@@ -1,4 +1,4 @@
-# README
+# Connected
 
 Connected is a social media web application. You can create an account, log in, add connections, message your connections and share posts with them. It was developed using Rails 7, sqlite3 and Bootstrap for styling.
 It was developed for educational purposes.
