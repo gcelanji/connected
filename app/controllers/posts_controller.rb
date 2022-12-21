@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :require_same_user, only:[:edit, :update, :destroy]
 
   def index
     @posts = current_user.posts
@@ -60,4 +61,11 @@ class PostsController < ApplicationController
     def post_params
       params.require(:post).permit(:content, :visibility, :user_id)
     end
+
+    def require_same_user
+    if current_user != @post.user
+      flash[:alert] = "Unauthorized access. You can edit or delete your own posts only."
+      redirect_to @post
+    end
+  end
 end
