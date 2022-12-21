@@ -1,4 +1,4 @@
-<%= content_tag :div, class: "feed-container my-3 p-3 bg-white shadow mx-auto posts-container-height" do %>
+<%= content_tag :div, class: "my-3 p-3 bg-white shadow" do %>
   <div class="d-flex">
     <h5 class="me-2"><%= @post.user.full_name %></h5>
     <small><%= time_ago_in_words(@post.updated_at) %></small>
@@ -13,5 +13,5 @@
       </div>
     <% end %>
   </div>
-  <%= @post.content %>
+  <p class="content mt-3"><%= simple_format(post.content) %><p>
 <% end %>
