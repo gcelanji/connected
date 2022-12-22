@@ -16,13 +16,14 @@
     </div>
     <p class="content mt-3"><%= simple_format(post.content) %><p>
     <hr />
-    <div class="d-flex justify-content-between ">
-      <%= link_to "Like",
+    <div class="d-flex">
+      <%= button_to "Like",
+          likes_path,
+          params: { like: { post_id: post.id } },
+          class: "btn btn-sm btn-secondary-custom" %>
+      <%= button_to "Comment",
           '#',
-          class: "w-50 text-center btn btn-sm btn-secondary-custom" %>
-      <%= link_to "Comment",
-          '#',
-          class: "w-50 text-center btn btn-sm btn-secondary-custom" %>
+          class: "btn btn-sm btn-secondary-custom" %>
     </div>
   </div>
 <% end %>

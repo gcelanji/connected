@@ -3,4 +3,5 @@ class Post < ApplicationRecord
 
   # associations
   belongs_to :user
+  has_many :likes
 end
