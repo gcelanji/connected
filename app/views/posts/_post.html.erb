@@ -42,12 +42,11 @@
                   '#',
                   class: "btn btn-sm btn-secondary-custom" %>
   </div>
+  <hr/>
   <div class="my-3">
-    <%= form_with do |form| %>
-      <div class="d-flex gap-3">
-        <%= text_field("comment", "content", options = {class: "w-100 form-control"}) %>
-        <%= form.submit(value = "Add Comment", options = {class: "btn btn-main-custom"}) %>
-      </div>
-    <% end %>
+    <%= render @post.comments %>
+  </div>
+  <div class="my-3">
+    <%= render partial: 'comments/form', locals: { post: @post } %>
   </div>
 <% end %>

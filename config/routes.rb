@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root 'home#index'
   get '/feed', to: 'pages#feed'
-  resources :posts
+  resources :posts do
+    resources :comments, only: [:create]
+  end
   devise_for :users
   resources :likes, only: [:create, :destroy]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

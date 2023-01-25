@@ -1,0 +1,9 @@
+<div name="comment_container">
+  <div class="d-flex">
+    <h6 class="me-2"><%= comment.user.full_name %></h5>
+    <small><%= time_ago_in_words(comment.updated_at) %></small>
+  </div>
+  <div class="ps-3 mb-4">
+    <%= comment.content %>
+  </div>
+</div>
