@@ -5,10 +5,10 @@
     <% if current_user == post.user %>
       <div class="ms-auto">
         <%= link_to edit_post_path(post) do %>
-          <%= image_tag("icons8-pencil-64.png", options = { class: "action-image" }) %>
+          <%= image_tag("icons8-pencil-64.png", options = { class: "action-image", title: "Edit post"  }) %>
         <% end %>
         <%= link_to post_path(post), method: :delete, data: { confirm: "Are you sure you want to delete your post?" } do %>
-          <%= image_tag("icons8-remove-96.png", options = { class: "action-image" }) %>
+          <%= image_tag("icons8-remove-96.png", options = { class: "action-image", title: "Delete post" }) %>
         <% end %>
       </div>
     <% end %>
