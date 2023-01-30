@@ -4,7 +4,7 @@
     <small><%= time_ago_in_words(comment.updated_at) %></small>
     <% if current_user == comment.user %>
       <div class="ms-auto">
-        <%= link_to "#", method: :delete, data: { confirm: "Are you sure you want to delete your comment?" } do %>
+        <%= link_to post_comment_path(comment.post, comment), method: :delete, data: { confirm: "Are you sure you want to delete your comment?" } do %>
           <%= image_tag("icons8-remove-96.png", options = { class: "action-image-20", title: "Delete comment" }) %>
         <% end %>
       </div>

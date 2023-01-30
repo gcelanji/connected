@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  before_action :set_comment, :set_post, only: :destroy
+
   def create
     # create a new comment
     @comment = current_user.comments.new(comment_params)
@@ -9,7 +11,23 @@ class CommentsController < ApplicationController
     end
   end
 
+  def destroy
+    @comment.destroy
+    respond_to do |format|
+      format.html { redirect_to post_path(@post) }
+      format.json { head :no_content }
+    end
+  end
+
   private
+
+  def set_comment
+    @comment = current_user.comments.find(params[:id])
+  end
+
+  def set_post
+    @post = Post.find(params[:post_id])
+  end
 
   def comment_params
     params
