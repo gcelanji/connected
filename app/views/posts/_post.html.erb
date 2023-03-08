@@ -38,7 +38,8 @@
                 post_path(post),
                 class: "btn btn-sm btn-secondary-custom" %>
     <%= button_to "Share",
-                  '#',
+                  shared_posts_path(post),
+                  data: { confirm: "Share post?" },
                   class: "btn btn-sm btn-secondary-custom" %>
   </div>
   <hr/>

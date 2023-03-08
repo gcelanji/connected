@@ -13,10 +13,13 @@
   <body>
     <!--<p class="notice"><%# notice %></p>-->
     <!--<p class="alert"><%# alert %></p>-->
-    <% if flash[:alert] %>
-      <%= flash[:alert] %>
-    <% end %>
     <%= render 'layouts/navbar' if user_signed_in? %>
+    <% if flash[:notice] %>
+      <div class="notice"><%= flash[:notice] %></div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="alert"><%= flash[:alert] %></div>
+    <% end %>
     <%= yield %>
     <%= render 'layouts/footer' %>
   </body>
