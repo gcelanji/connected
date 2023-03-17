@@ -1,47 +1,67 @@
-<% posts.each do |post| %>
-  <div class="my-3 p-3 bg-white shadow">
-    <div class="d-flex">
-      <h5 class="me-2"><%= post.user.full_name %></h5>
-      <small><%= time_ago_in_words(post.updated_at) %></small>
-      <% if current_user == post.user %>
-        <div class="ms-auto">
-          <%= link_to edit_post_path(post), title: "Edit post" do %>
-            <%= image_tag("icons8-pencil-64.png", options = { class: "action-image" }) %>
-          <% end %>
-          <%= link_to post_path(post), title: "Delete post", method: :delete, data: { confirm: "Are you sure you want to delete your post?" } do %>
-            <%= image_tag("icons8-remove-96.png", options = { class: "action-image" }) %>
-          <% end %>
-        </div>
+<% @all_posts.each do |post| %>
+  <% if post.class.name == "Post" %>
+    <div class="my-3 p-3 bg-white shadow">
+      <div class="d-flex">
+        <h5 class="me-2"><%= post.user.full_name %></h5>
+        <small><%= time_ago_in_words(post.updated_at) %></small>
+        <% if current_user == post.user %>
+          <div class="ms-auto">
+            <%= link_to edit_post_path(post), title: "Edit post" do %>
+              <%= image_tag("icons8-pencil-64.png", options = { class: "action-image" }) %>
+            <% end %>
+            <%= link_to post_path(post), title: "Delete post", method: :delete, data: { confirm: "Are you sure you want to delete your post?" } do %>
+              <%= image_tag("icons8-remove-96.png", options = { class: "action-image" }) %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <p class="content mt-3 mb-3"><%= simple_format(post.content) %><p>
+      <% like = current_user.likes.find_by(post: post) %>
+      <% unless post.likes.nil? || post.likes.count == 0 %>
+        <div class="pt-3 text-secondary"><small><i>
+          <%= pluralize(post.likes.count, 'like') %>
+        </i></small></div>
       <% end %>
-    </div>
-    <p class="content mt-3 mb-3"><%= simple_format(post.content) %><p>
-    <% like = current_user.likes.find_by(post: post) %>
-    <% unless post.likes.nil? || post.likes.count == 0 %>
-      <div class="pt-3 text-secondary"><small><i>
-        <%= pluralize(post.likes.count, 'like') %>
-      </i></small></div>
-    <% end %>
-    <hr/>
-    <div class="d-flex gap-3">
-      <% if like.nil? %>
-        <%= button_to "Like",
-                      likes_path,
-                      params: { like: { post_id: post.id } },
-                      class: "btn btn-sm btn-secondary-custom" %>
-      <% else %>
-        <%= button_to "Like",
-                      like_path(like),
-                      params: { like: { post_id: post.id } },
-                      method: :delete,
-                      class: "btn btn-sm btn-main-custom" %>
-      <% end %>
-      <%= link_to "Comment",
-                  post_path(post),
-                  class: "btn btn-sm btn-secondary-custom" %>
-      <%= button_to "Share",
-                    shared_posts_path(post_id: post.id, user_id: current_user.id),
-                    data: { confirm: "Share post?" },
+      <hr/>
+      <div class="d-flex gap-3">
+        <% if like.nil? %>
+          <%= button_to "Like",
+                        likes_path,
+                        params: { like: { post_id: post.id } },
+                        class: "btn btn-sm btn-secondary-custom" %>
+        <% else %>
+          <%= button_to "Like",
+                        like_path(like),
+                        params: { like: { post_id: post.id } },
+                        method: :delete,
+                        class: "btn btn-sm btn-main-custom" %>
+        <% end %>
+        <%= link_to "Comment",
+                    post_path(post),
                     class: "btn btn-sm btn-secondary-custom" %>
+        <%= button_to "Share",
+                      shared_posts_path(post_id: post.id, user_id: current_user.id),
+                      data: { confirm: "Share post?" },
+                      class: "btn btn-sm btn-secondary-custom" %>
+      </div>
     </div>
-  </div>
+  <% else %>
+  <div class="my-3 p-3 bg-white shadow">
+      <div class="d-flex">
+        <h5 class="me-2"><%= post.user.full_name %></h5>
+        <small><%= time_ago_in_words(post.updated_at) %></small>
+        <% if current_user == post.user %>
+          <div class="ms-auto">
+            <%= link_to edit_post_path(post), title: "Edit post" do %>
+              <%= image_tag("icons8-pencil-64.png", options = { class: "action-image" }) %>
+            <% end %>
+            <%= link_to post_path(post), title: "Delete post", method: :delete, data: { confirm: "Are you sure you want to delete your post?" } do %>
+              <%= image_tag("icons8-remove-96.png", options = { class: "action-image" }) %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <%= post.post.content %>
+    </div>
+  <% end %>
 <% end %>

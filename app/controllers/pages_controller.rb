@@ -1,5 +1,7 @@
 class PagesController < ApplicationController
   def feed
-    @posts = Post.order('created_at DESC')
+    @posts = Post.all
+    @shared_posts = SharedPost.all
+    @all_posts = (@posts + @shared_posts).sort_by(&:created_at).reverse
   end
 end
