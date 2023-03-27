@@ -4,6 +4,8 @@ class PostsController < ApplicationController
 
   def index
     @posts = current_user.posts
+    @shared_posts = current_user.shared_posts
+    @all_posts = (@posts + @shared_posts).sort_by(&:created_at).reverse
   end
 
   def show

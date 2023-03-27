@@ -61,7 +61,10 @@
           </div>
         <% end %>
       </div>
-      <%= post.post.content %>
+      <div class="my-3 p-3 bg-white shadow">
+        <h5 class="me-2"><%= post.post.user.full_name %></h5>
+        <p class="content mt-3 mb-3"><%= simple_format(post.post.content) %><p>
+      </div>
     </div>
   <% end %>
 <% end %>
