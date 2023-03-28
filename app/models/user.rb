@@ -7,11 +7,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   # associations
-  has_many :posts
-  has_many :likes
-  has_many :comments
-  has_many :shared_posts
-  has_many :posts, through: :shared_posts
+  has_many :posts, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :shared_posts, dependent: :destroy
 
   def full_name
     "#{first_name} #{last_name}"
