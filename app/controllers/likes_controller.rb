@@ -1,7 +1,6 @@
 class LikesController < ApplicationController
   def create
     @like = current_user.likes.new(like_params)
-
     if !@like.save
       flash[:notice] = @like.errors.full_messages.to_sentence
     end
@@ -22,6 +21,6 @@ class LikesController < ApplicationController
 
   def like_params
     # binding.irb
-    params.require(:like).permit(:post_id)
+    params.require(:like).permit(:post_id, :post_type)
   end
 end

@@ -33,6 +33,6 @@ class CommentsController < ApplicationController
     params
       .require(:comment)
       .permit(:content)
-      .merge(post_id: params[:post_id])
+      .merge(post_id: params[:post_id], post_type: params[:post_type])
   end
 end
