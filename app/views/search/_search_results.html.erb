@@ -4,7 +4,15 @@
       <h5 class="me-2"><%= user.full_name %></h5>
       <% if user != current_user %>
         <div class="ms-auto">
-         Connect
+          <% if not(current_user.connections.where(connection: user, status: :pending).empty?) %>
+            <% connection = current_user.connections.where(connection: user, status: :pending).first %>
+            <%= button_to "Cancel request", connection_path(connection), method: :delete, class: "btn btn-sm btn-main-custom" %>
+          <% elsif not(current_user.connections.where(connection: user, status: :accepted).empty?) %>
+            <% connection = current_user.connections.where(connection: user, status: :accepted).first %>
+            <%= button_to "Remove connection", connection_path(connection), method: :delete, class: "btn btn-sm btn-main-custom" %>
+          <% else %>
+            <%= button_to "Connect", connections_path(user_id: user), method: :post, class: "btn btn-sm btn-main-custom" %>
+          <% end %>
         </div>
       <% end %>
     </div>
