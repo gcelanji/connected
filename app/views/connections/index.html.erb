@@ -1,0 +1,42 @@
+<% unless @pending_requests.empty? %>
+  <h5 class="app-container mx-auto mt-5">Pending requests</h5>
+  <div class="app-container mx-auto mx-3 p-2 bg-white shadow">
+    <table class="table table-hover">
+      <tbody>
+        <% @pending_requests.each do |request| %>
+          <tr>
+            <th scope="row"><%= request.user.full_name %></th>
+            <td>
+              <%= link_to "Accept",
+                            '#',
+                            class: "btn btn-sm btn-main-custom" %>
+              <%= link_to "Delete",
+                            '#',
+                            class: "btn btn-sm btn-secondary-custom" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<% unless @connections.empty? %>
+  <h5 class="app-container mx-auto mt-5">Connections</h5>
+  <div class="app-container mx-auto mx-3 p-2 bg-white shadow">
+    <table class="table table-hover">
+      <tbody>
+        <% @connections.each do |connection| %>
+          <tr>
+            <th scope="row"><%= connection.user.full_name %></th>
+            <td>
+              <%= link_to "Remove",
+                            '#',
+                            class: "btn btn-sm btn-main-custom" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
