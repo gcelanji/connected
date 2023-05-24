@@ -31,7 +31,7 @@
         <tbody>
           <% @connections.each do |connection| %>
             <tr>
-              <th scope="row"><%= connection.user.full_name %></th>
+              <th scope="row"><%= connection.full_name %></th>
               <td>
                 <%= link_to "Remove",
                             connection_path(connection),

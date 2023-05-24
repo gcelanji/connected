@@ -19,7 +19,8 @@ class User < ApplicationRecord
   end
 
   def active_connections
-    connections.accepted + connected_users.accepted
+    connection_ids = connections.accepted.pluck(:connection_id) + connected_users.accepted.pluck(:user_id)
+    User.find(connection_ids).uniq
   end
 
   def self.ransackable_attributes(auth_object = nil)
