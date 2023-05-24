@@ -8,7 +8,11 @@ Rails.application.routes.draw do
   end
   devise_for :users
   resources :likes, only: [:create, :destroy]
-  resources :connections, only: [:index, :create, :destroy]
+  resources :connections, only: [:index, :create, :destroy, :accept, :destroy] do
+    member do
+      patch :accept
+    end
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

@@ -1,4 +1,6 @@
 class ConnectionsController < ApplicationController
+  before_action :set_connection, only: [:destroy, :accept]
+
   def index
     @pending_requests = Connection.where(connection_id: current_user.id, status: 'pending')
     accepted_requests_sent_by_user = Connection.where(user_id: current_user.id, status: 'accepted')
@@ -17,8 +19,18 @@ class ConnectionsController < ApplicationController
   end
 
   def destroy
-    @connection = Connection.find(params[:id])
     @connection.destroy
-    redirect_back fallback_location: feed_path
+    redirect_back fallback_location: connections_path
+  end
+
+  def accept
+    @connection.accepted!
+    redirect_back fallback_location: connections_path
+  end
+
+  private
+
+  def set_connection
+    @connection = Connection.find(params[:id])
   end
 end
