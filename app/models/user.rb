@@ -12,10 +12,14 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :shared_posts, dependent: :destroy
   has_many :connections, foreign_key: :user_id
-  has_many :connected_users, foreign_key: :Connection_id, class_name: 'Connection'
+  has_many :connected_users, foreign_key: :connection_id, class_name: 'Connection'
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def active_connections
+    connections.accepted + connected_users.accepted
   end
 
   def self.ransackable_attributes(auth_object = nil)

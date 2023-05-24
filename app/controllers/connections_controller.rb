@@ -3,9 +3,7 @@ class ConnectionsController < ApplicationController
 
   def index
     @pending_requests = Connection.where(connection_id: current_user.id, status: 'pending')
-    accepted_requests_sent_by_user = Connection.where(user_id: current_user.id, status: 'accepted')
-    accepted_requests_received_by_user = Connection.where(connection_id: current_user.id, status: 'accepted')
-    @connections = accepted_requests_sent_by_user + accepted_requests_received_by_user
+    @connections = current_user.active_connections
   end
 
   def create
