@@ -29,12 +29,12 @@
   <% else %>
       <table class="table table-hover">
         <tbody>
-          <% @connections.each do |connection| %>
+          <% @connections.each do |user| %>
             <tr>
-              <th scope="row"><%= connection.full_name %></th>
+              <th scope="row"><%= user.full_name %></th>
               <td>
                 <%= link_to "Remove",
-                            connection_path(connection),
+                            connection_path(current_user.connection_from(user)),
                             method: :delete,
                             class: "btn btn-sm btn-main-custom" %>
               </td>

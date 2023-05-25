@@ -23,6 +23,22 @@ class User < ApplicationRecord
     User.find(connection_ids).uniq
   end
 
+  def has_a_pending_request_from(user)
+    connected_users.pending.map(&:user_id).include?(user.id)
+  end
+
+  def sent_a_request_to(user)
+    connections.pending.map(&:connection_id).include?(user.id)
+  end
+
+  def is_a_connection_with(user)
+    connected_users.accepted.map(&:user_id).include?(user.id) || connections.accepted.map(&:connection_id).include?(user.id)
+  end
+
+  def connection_from(user)
+      connections.where(connection: user).first || connected_users.where(user: user).first
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     ["birth_date", "created_at", "email", "encrypted_password", "first_name", "id", "last_name", "remember_created_at", "reset_password_sent_at", "reset_password_token", "updated_at"]
   end

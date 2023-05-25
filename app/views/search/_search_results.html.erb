@@ -4,11 +4,17 @@
       <h5 class="me-2"><%= user.full_name %></h5>
       <% if user != current_user %>
         <div class="ms-auto">
-          <% if not(current_user.connections.where(connection: user, status: :pending).empty?) %>
+          <% if current_user.sent_a_request_to(user) %>
             <% connection = current_user.connections.where(connection: user, status: :pending).first %>
             <%= button_to "Cancel request", connection_path(connection), method: :delete, class: "btn btn-sm btn-main-custom" %>
-          <% elsif not(current_user.connections.where(connection: user, status: :accepted).empty?) %>
-            <% connection = current_user.connections.where(connection: user, status: :accepted).first %>
+          <% elsif current_user.has_a_pending_request_from(user) %>
+              <% connection = current_user.connected_users.where(user: user, status: :pending).first %>
+              <div class="d-flex gap-2">
+                <%= button_to "Accept", accept_connection_path(connection), method: :patch, class: "btn btn-sm btn-main-custom" %>
+                <%= button_to "Delete", connection_path(connection), method: :delete, class: "btn btn-sm btn-secondary-custom" %>
+              </div>
+          <% elsif current_user.is_a_connection_with(user) %>
+            <% connection = current_user.connections.where(connection: user, status: :accepted).first || current_user.connected_users.where(user: user, status: :accepted).first %>
             <%= button_to "Remove connection", connection_path(connection), method: :delete, class: "btn btn-sm btn-main-custom" %>
           <% else %>
             <%= button_to "Connect", connections_path(user_id: user), method: :post, class: "btn btn-sm btn-main-custom" %>
