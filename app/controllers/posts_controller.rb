@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
-  before_action :require_same_user, only:[:edit, :update, :destroy]
+  before_action :require_same_user, only: [:edit, :update, :destroy]
+  before_action :visibility_check, only: [:show]
 
   def index
     @posts = current_user.posts
@@ -54,20 +55,27 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_post
+    @post = Post.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def post_params
-      params.require(:post).permit(:content, :visibility, :user_id)
-    end
+  # Only allow a list of trusted parameters through.
+  def post_params
+    params.require(:post).permit(:content, :visibility, :user_id)
+  end
 
-    def require_same_user
+  def require_same_user
     if current_user != @post.user
       flash[:alert] = "Unauthorized access. You can edit or delete your own posts only."
       redirect_to @post
+    end
+  end
+
+  def visibility_check
+    if (@post.onlyme? && current_user != @post.user) || ((!current_user.is_a_connection_with(@post.user) && current_user != @post.user) && @post.connections?)
+      flash[:alert] = "Unauthorized access"
+      redirect_back fallback_location: feed_path
     end
   end
 end
