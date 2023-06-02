@@ -1,5 +1,37 @@
-# Connected
+# Connected: Social Media Web Application
+Connected is a social media web application developed for educational purposes. It allows users to create accounts, log in, add connections, and share posts with their network.
 
-Connected is a social media web application. You can create an account, log in, add connections, message your connections and share posts with them. It was developed using Rails 7, sqlite3 and Bootstrap for styling.
-It was developed for educational purposes.
-If you would like to run the application (assuming you already have installed the required gems) you can clone or download the repository and while on the root folder of the app you can run 'rails server' for the server to start running. After just navigate to https://localhost:3000/.
+# Technologies Used
+* Ruby on Rails 7
+* SQLite3 (Database)
+* Bootstrap (Styling)
+
+# Getting Started
+## Prerequisites
+Make sure you have the following installed if you wish to run the application without using docker containers:
+
+* Ruby
+* Ruby on Rails
+* Bundler (You can install it using gem install bundler)
+
+## Installation
+* Clone the repository:
+`git clone https://github.com/your-username/connected.git`
+* Change into the project directory:
+`cd connected`
+* Install dependencies:
+`bundle install`
+
+## Running the Application
+* Start the Rails server: `rails server`
+* Open your web browser and navigate to http://localhost:3000/
+
+### Or
+* Build and start the docker container with: `docker-compose up --build`
+* Open your web browser and navigate to http://localhost:3000/
+
+# Features
+* **User Authentication:** Create accounts and log in securely.
+* **Connection Management:** Add and manage connections within the platform.
+* **Post Sharing:** Share posts with your network.
+* **Bootstrap Styling:** A clean and responsive user interface.
