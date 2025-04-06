@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
   devise_for :users
   resources :likes, only: [:create, :destroy]
-  resources :connections, only: [:index, :create, :destroy, :accept, :destroy] do
+  resources :connections, only: [:index, :create, :destroy] do
     member do
       patch :accept
     end
