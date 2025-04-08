@@ -1,0 +1,41 @@
+<div class="my-3 p-3 bg-white shadow">
+  <div class="d-flex">
+    <h5 class="me-2"><%= shared_post.user.full_name %></h5>
+    <small><%= time_ago_in_words(shared_post.updated_at) %></small>
+    <% if current_user == shared_post.user %>
+      <div class="ms-auto">
+        <%= link_to shared_post_path(shared_post), title: "Delete post", method: :delete, data: { confirm: "Are you sure you want to delete your post?" } do %>
+          <%= image_tag("icons8-remove-96.png", options = { class: "action-image" }) %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <div class="my-3 p-3 bg-white shadow">
+    <h5 class="me-2"><%= shared_post.post.user.full_name %></h5>
+    <p class="content mt-3 mb-3"><%= simple_format(shared_post.post.content) %><p>
+  </div>
+  <% like = current_user.likes.find_by(post: shared_post) %>
+  <% unless shared_post.likes.nil? || shared_post.likes.count == 0 %>
+    <div class="pt-3 text-secondary"><small><i>
+      <%= pluralize(shared_post.likes.count, 'like') %>
+    </i></small></div>
+  <% end %>
+  <hr/>
+  <div class="d-flex gap-3">
+    <% if like.nil? %>
+      <%= button_to "Like",
+                    likes_path,
+                    params: { like: { post_id: shared_post.id, post_type: shared_post.class.name } },
+                    class: "btn btn-sm btn-secondary-custom" %>
+    <% else %>
+      <%= button_to "Like",
+                    like_path(like),
+                    params: { like: { post_id: shared_post.id } },
+                    method: :delete,
+                    class: "btn btn-sm btn-main-custom" %>
+    <% end %>
+    <%= link_to "Comment",
+                shared_post_path(shared_post),
+                class: "btn btn-sm btn-secondary-custom" %>
+  </div>
+</div>

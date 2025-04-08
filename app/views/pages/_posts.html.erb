@@ -56,7 +56,7 @@
         <small><%= time_ago_in_words(post.updated_at) %></small>
         <% if current_user == post.user %>
           <div class="ms-auto">
-            <%= link_to post_path(post), title: "Delete post", method: :delete, data: { confirm: "Are you sure you want to delete your post?" } do %>
+            <%= link_to shared_post_path(post), title: "Delete post", method: :delete, data: { confirm: "Are you sure you want to delete your post?" } do %>
               <%= image_tag("icons8-remove-96.png", options = { class: "action-image" }) %>
             <% end %>
           </div>
@@ -87,7 +87,7 @@
                         class: "btn btn-sm btn-main-custom" %>
         <% end %>
         <%= link_to "Comment",
-                    post_path(post),
+                    shared_post_path(post),
                     class: "btn btn-sm btn-secondary-custom" %>
       </div>
     </div>
