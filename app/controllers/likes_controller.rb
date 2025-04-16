@@ -1,26 +1,26 @@
 class LikesController < ApplicationController
   def create
-    @like = current_user.likes.new(like_params)
-    if !@like.save
-      flash[:notice] = @like.errors.full_messages.to_sentence
+    klass = like_params[:post_type].constantize
+    post = klass.find(like_params[:post_id])
+    like = current_user.likes.find_by(post: post)
+
+    if like.nil?
+      @like = current_user.likes.new(like_params)
+      if !@like.save
+        flash.now[:notice] = @like.errors.full_messages.to_sentence
+        render json: {success: false, action: :create}
+      else
+        render json: {success: true, action: :create, count: post.likes.count}
+      end
+    else
+      like.destroy
+      render json: {success: true, action: :destroy, count: post.likes.count}
     end
-
-    # redirect_to @like.post
-    redirect_back_or_to @like.post
-  end
-
-  def destroy
-    @like = current_user.likes.find(params[:id])
-    post = @like.post
-    @like.destroy
-    # redirect_to post
-    redirect_back_or_to post
   end
 
   private
 
   def like_params
-    # binding.irb
     params.require(:like).permit(:post_id, :post_type)
   end
 end

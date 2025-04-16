@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy]
   end
   devise_for :users
-  resources :likes, only: [:create, :destroy]
+  resources :likes, only: [:create], defaults: {format: :json}
   resources :connections, only: [:index, :create, :destroy] do
     member do
       patch :accept
