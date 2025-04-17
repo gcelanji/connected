@@ -18,11 +18,9 @@
         </div>
         <p class="content mt-3 mb-3"><%= simple_format(post.content) %><p>
         <% like = current_user.likes.find_by(post: post) %>
-        <% unless post.likes.nil? || post.likes.count == 0 %>
-          <div class="pt-3 text-secondary" data-likes-target="count"><small><i>
-            <%= pluralize(post.likes.count, 'like') %>
-          </i></small></div>
-        <% end %>
+        <div id="count-post-<%= post.id %>" class="<%= 'd-none' if post.likes.count == 0 %> pt-3 text-secondary"><small><i>
+          <%= pluralize(post.likes.count, 'like') %>
+        </i></small></div>
         <hr/>
         <div class="d-flex gap-3">
           <%= button_to "Like",
@@ -60,25 +58,16 @@
         <p class="content mt-3 mb-3"><%= simple_format(post.post.content) %><p>
       </div>
       <% like = current_user.likes.find_by(post: post) %>
-      <% unless post.likes.nil? || post.likes.count == 0 %>
-        <div class="pt-3 text-secondary"><small><i>
-          <%= pluralize(post.likes.count, 'like') %>
-        </i></small></div>
-      <% end %>
+      <div id="count-shared-post-<%= post.id %>" class="<%= 'd-none' if post.likes.count == 0 %> pt-3 text-secondary"><small><i>
+        <%= pluralize(post.likes.count, 'like') %>
+      </i></small></div>
       <hr/>
       <div class="d-flex gap-3">
-        <% if like.nil? %>
-          <%# button_to "Like",
-                        likes_path,
-                        params: { like: { post_id: post.id, post_type: post.class.name } },
-                        class: "btn btn-sm btn-secondary-custom" %>
-        <% else %>
-          <%# button_to "Like",
-                        like_path(like),
-                        params: { like: { post_id: post.id } },
-                        method: :delete,
-                        class: "btn btn-sm btn-main-custom" %>
-        <% end %>
+        <%= button_to "Like",
+                      likes_path,
+                      data: {action: "click->likes#toggle" },
+                      params: { like: { post_id: post.id, post_type: post.class.name } },
+                      class: "btn btn-sm #{like.nil? ? 'btn-secondary-custom' : 'btn-main-custom'}" %>
         <%= link_to "Comment",
                     shared_post_path(post),
                     class: "btn btn-sm btn-secondary-custom" %>

@@ -8,13 +8,13 @@ class LikesController < ApplicationController
       @like = current_user.likes.new(like_params)
       if !@like.save
         flash.now[:notice] = @like.errors.full_messages.to_sentence
-        render json: {success: false, action: :create}
+        render json: { success: false, action: :create }
       else
-        render json: {success: true, action: :create, count: post.likes.count}
+        render json: { success: true, action: :create, count: post.likes.count, post_id: post.id, post_type: like_params[:post_type] }
       end
     else
       like.destroy
-      render json: {success: true, action: :destroy, count: post.likes.count}
+      render json: {success: true, action: :destroy, count: post.likes.count, post_id: post.id, post_type: like_params[:post_type] }
     end
   end
 
