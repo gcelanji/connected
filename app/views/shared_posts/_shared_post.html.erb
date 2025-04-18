@@ -22,18 +22,11 @@
   <% end %>
   <hr/>
   <div class="d-flex gap-3">
-    <% if like.nil? %>
-      <%= button_to "Like",
-                    likes_path,
-                    params: { like: { post_id: shared_post.id, post_type: shared_post.class.name } },
-                    class: "btn btn-sm btn-secondary-custom" %>
-    <% else %>
-      <%= button_to "Like",
-                    like_path(like),
-                    params: { like: { post_id: shared_post.id } },
-                    method: :delete,
-                    class: "btn btn-sm btn-main-custom" %>
-    <% end %>
+    <%= button_to "Like",
+                  likes_path,
+                  data: {action: "click->likes#toggle" },
+                  params: { like: { post_id: shared_post.id, post_type: shared_post.class.name } },
+                    class: "btn btn-sm #{like.nil? ? 'btn-secondary-custom' : 'btn-main-custom'}" %>
     <%= link_to "Comment",
                 shared_post_path(shared_post),
                 class: "btn btn-sm btn-secondary-custom" %>
