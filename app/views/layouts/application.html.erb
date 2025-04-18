@@ -15,10 +15,16 @@
     <!--<p class="alert"><%# alert %></p>-->
     <%= render 'layouts/navbar' if user_signed_in? %>
     <% if flash[:notice] %>
-      <div class="notice"><%= flash[:notice] %></div>
+      <div class="notice">
+        <%= flash[:notice] %>
+        <button class="flash-close" onclick="this.parentElement.style.display='none';">&times;</button>
+      </div>
     <% end %>
     <% if flash[:alert] %>
-      <div class="alert"><%= flash[:alert] %></div>
+      <div class="alert">
+        <%= flash[:alert] %>
+        <button class="flash-close" onclick="this.parentElement.style.display='none';">&times;</button>
+      </div>
     <% end %>
     <%= yield %>
     <%= render 'layouts/footer' %>

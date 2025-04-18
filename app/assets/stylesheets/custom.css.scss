@@ -116,3 +116,43 @@ nav{
 .btn-comment{
   max-width: 256px;
 }
+
+.notice,
+.alert {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 20px auto;
+  padding: 15px 40px 15px 40px;
+  border-radius: 4px;
+  font-weight: bold;
+  width: fit-content;
+  max-width: 80%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.notice {
+  background-color: #e6ffed;
+  color: #256029;
+  border: 1px solid #b5e6c1;
+}
+
+.alert {
+  background-color: #ffe6e6;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.flash-close {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  color: inherit;
+  cursor: pointer;
+}
