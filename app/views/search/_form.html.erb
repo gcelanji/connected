@@ -1,6 +1,7 @@
 <%= search_form_for(@query, url: search_path, method: :get, class: "d-flex") do |f| %>
   <%= f.search_field :first_name_or_last_name_or_email_cont,
       placeholder: "Search Connected",
-      class: "form-control me-2" %>
+      class: "form-control me-2",
+      required: true %>
   <%= f.submit "Search!", class: "btn btn-outline-light" %>
 <% end %>

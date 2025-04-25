@@ -72,4 +72,9 @@ export default class extends Controller {
     if (count === 0) return "";
     return count === 1 ? `<small><i>${count} ${word}</small></i>` : `<small><i>${count} ${word}` + "s<small></i>";
   }
+
+  clearInput() {
+    const input = this.element.querySelector("input[type='text']")
+    if (input) input.value = ""
+  }
 }

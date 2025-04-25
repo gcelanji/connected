@@ -1,3 +1,4 @@
+<%= turbo_stream_from "comments" %>
 <%= content_tag :div, class: "my-3 p-3 bg-white shadow" do %>
   <div class="d-flex">
     <h5 class="me-2"><%= @post.user.full_name %></h5>
@@ -34,9 +35,9 @@
                   class: "btn btn-sm btn-secondary-custom" %>
   </div>
   <hr/>
-  <div class="my-3">
+  <%= turbo_frame_tag "comments" do %>
     <%= render @post.comments %>
-  </div>
+  <% end %>
   <div class="my-3">
     <%= render partial: 'comments/form', locals: { post: @post } %>
   </div>
