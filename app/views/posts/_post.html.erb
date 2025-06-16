@@ -36,7 +36,7 @@
   </div>
   <hr/>
   <%= turbo_frame_tag "comments" do %>
-    <%= render @post.comments %>
+    <%= render @post.comments, user: current_user %>
   <% end %>
   <div class="my-3">
     <%= render partial: 'comments/form', locals: { post: @post } %>

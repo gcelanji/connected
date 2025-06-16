@@ -1,1 +1,8 @@
-<%= turbo_stream.append "comments", @comment %>
+<%= turbo_stream.append "comments", partial: "comments/comment", locals: { comment: @comment, user: current_user } %>
+
+<% Turbo::StreamsChannel.broadcast_append_to(
+  "comments",
+  target: "comments",
+  partial: "comments/comment",
+  locals: { comment: @comment, user: nil }
+) %>
