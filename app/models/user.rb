@@ -13,6 +13,8 @@ class User < ApplicationRecord
   has_many :shared_posts, dependent: :destroy
   has_many :connections, foreign_key: :user_id
   has_many :connected_users, foreign_key: :connection_id, class_name: 'Connection'
+  has_many :conversation_users, dependent: :destroy
+  has_many :conversations, through: :conversation_users
 
   def full_name
     "#{first_name} #{last_name}"
