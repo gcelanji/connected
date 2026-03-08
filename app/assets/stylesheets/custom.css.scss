@@ -98,6 +98,48 @@ nav{
   width: 24px;
 }
 
+.message-bubble-current-user {
+  background-color: #4B0082;
+  color: white;
+}
+
+.message-container {
+  display: inline-block;
+}
+
+.message-bubble {
+  word-wrap: break-word;
+  word-break: break-word;
+  max-width: fit-content;
+}
+
+.conversation-panel {
+  height: 500px;
+}
+
+.message-row-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.message-row-left {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+.message-form-container {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 1rem;
+}
+
+
+
 .destroy_button {
     background: url(../images/icons8-remove-96.png) #f2efa8 no-repeat 10px 6px;
     text-indent:30px;

@@ -33,10 +33,15 @@
             <tr>
               <th scope="row"><%= user.full_name %></th>
               <td>
+                <%= link_to "Message",
+                            conversations_path(user_id: user.id),
+                            method: :post,
+                            class: "btn btn-sm btn-main-custom me-2" %>
                 <%= link_to "Remove",
                             connection_path(current_user.connection_from(user)),
                             method: :delete,
-                            class: "btn btn-sm btn-main-custom" %>
+                            data: { confirm: "Are you sure you want to remove #{user.full_name} from your connections?" },
+                            class: "btn btn-sm btn-danger-custom" %>
               </td>
             </tr>
           <% end %>

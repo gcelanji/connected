@@ -1,0 +1,27 @@
+<h5 class="app-container mx-auto mt-5">Conversations</h5>
+
+<div class="app-container mx-auto mt-3">
+  <div class="row g-3">
+    <%= render 'sidebar' %>
+
+    <div class="col-12 col-md-8">
+      <div class="bg-white shadow rounded p-3">
+        <h6 class="mb-3">Start a Conversation</h6>
+        <p class="text-muted">Select a conversation from the left sidebar to view messages, or click the "Message" button on a connection below to start messaging.</p>
+        
+        <% if @connections.empty? %>
+          <p class="text-muted mb-0">You don't have any connections yet. <%= link_to "Find connections", connections_path %> to start messaging.</p>
+        <% else %>
+          <div class="list-group">
+            <% @connections.each do |connection| %>
+              <div class="list-group-item d-flex justify-content-between align-items-center">
+                <span><%= connection.full_name %></span>
+                <%= link_to "Message", conversations_path(user_id: connection.id), method: :post, class: 'btn btn-sm btn-main-custom' %>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
