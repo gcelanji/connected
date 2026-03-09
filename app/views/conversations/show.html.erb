@@ -1,5 +1,7 @@
 <h5 class="app-container mx-auto mt-5">Conversations</h5>
 
+<%= turbo_stream_from [@conversation] %>
+
 <div class="app-container mx-auto mt-3">
   <div class="row g-3">
     <%= render 'sidebar' %>
@@ -7,26 +9,17 @@
     <div class="col-12 col-md-8">
       <div class="bg-white shadow rounded p-3 d-flex flex-column conversation-panel">
         <div class="messages-container" data-controller="conversations">
-          <% if @messages.empty? %>
-            <p class="mb-0 text-muted">No messages yet for this conversation.</p>
-          <% else %>
-            <div>
-              <% @messages.each do |message| %>
-                <% is_current_user = message.user_id == current_user.id %>
-                <div class="mb-3 <%= is_current_user ? 'message-row-right' : 'message-row-left' %>">
-                  <div class="message-container">
-                    <div class="small mb-1 <%= is_current_user ? 'text-end' : 'text-start' %>">
-                      <strong><%= is_current_user ? 'You' : message.user.full_name %></strong>
-                      <span class="text-muted ms-2"><%= message.created_at.strftime('%b %-d, %H:%M') %></span>
-                    </div>
-                    <div class="p-2 rounded message-bubble <%= is_current_user ? 'message-bubble-current-user ms-auto' : 'bg-light me-auto' %>">
-                      <%= message.content %>
-                    </div>
-                  </div>
-                </div>
-              <% end %>
-            </div>
-          <% end %>
+          <div id="messages-list">
+            <% if @messages.empty? %>
+              <p class="mb-0 text-muted">No messages yet for this conversation.</p>
+            <% else %>
+              <div>
+                <% @messages.each do |message| %>
+                  <%= render 'messages/message', message: message, user: current_user %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
         </div>
 
         <div class="message-form-container">

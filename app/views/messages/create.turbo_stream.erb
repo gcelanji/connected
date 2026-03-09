@@ -1,0 +1,8 @@
+<%= turbo_stream.append "messages-list", partial: "messages/message", locals: { message: @message, user: current_user } %>
+
+<% Turbo::StreamsChannel.broadcast_append_to(
+	[@conversation],
+	target: "messages-list",
+	partial: "messages/message",
+	locals: { message: @message, user: nil }
+) %>

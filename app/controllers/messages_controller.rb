@@ -5,7 +5,10 @@ class MessagesController < ApplicationController
 		@message.user = current_user
 
 		if @message.save
-			redirect_to @conversation
+			respond_to do |format|
+				format.html { redirect_to @conversation }
+				format.turbo_stream
+			end
 		else
 			@messages = @conversation.messages.includes(:user).order(:created_at)
 			@conversations = current_user.conversations.includes(:users, messages: :user).order(updated_at: :desc)
