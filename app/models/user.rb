@@ -41,6 +41,18 @@ class User < ApplicationRecord
       connections.where(connection: user).first || connected_users.where(user: user).first
   end
 
+  def unread_messages_count
+    Message.joins(conversation: :users)
+           .where(users: { id: id })
+           .where.not(user_id: id)
+           .where(read: false)
+           .count
+  end
+
+  def pending_connections_count
+    connected_users.pending.count
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     ["birth_date", "created_at", "email", "encrypted_password", "first_name", "id", "last_name", "remember_created_at", "reset_password_sent_at", "reset_password_token", "updated_at"]
   end

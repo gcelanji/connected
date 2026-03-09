@@ -9,6 +9,9 @@ class ConversationsController < ApplicationController
     @conversation = @conversations.find(params[:id])
     @messages = @conversation.messages.sort_by(&:created_at)
     @message = @conversation.messages.build
+    
+    # Mark all unread messages from others as read
+    @conversation.messages.where.not(user_id: current_user.id).where(read: false).update_all(read: true)
   end
 
   def create
