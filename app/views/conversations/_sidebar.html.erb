@@ -9,19 +9,14 @@
           <% other_users = conversation.users.reject { |u| u.id == current_user.id } %>
           <% title = conversation.name.presence || other_users.map(&:full_name).join(', ').presence || 'Conversation' %>
           <% last_message = conversation.messages.sort_by { |m| m.created_at || Time.at(0) }.last %>
-            <% unread_count = conversation.messages.count { |m| !m.read && m.user_id != current_user.id } %>
+          <% unread = conversation.messages.any? { |m| !m.read && m.user_id != current_user.id } %>
 
           <li class="list-group-item px-2 py-3 <%= 'bg-light' if is_selected %>">
             <div class="d-flex justify-content-between align-items-start">
               <%= link_to conversation_path(conversation), class: 'text-decoration-none text-dark flex-grow-1' do %>
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="fw-semibold"><%= title %></div>
-                    <% if unread_count > 0 %>
-                      <span class="badge bg-danger rounded-pill"><%= unread_count %></span>
-                    <% end %>
-                  </div>
+                <div class="<%= unread ? 'fw-bold' : 'fw-semibold' %>"><%= title %></div>
                 <% if last_message.present? %>
-                  <div class="small text-muted text-truncate"><%= last_message.content %></div>
+                  <div class="small text-truncate <%= unread ? 'text-dark fw-semibold' : 'text-muted' %>"><%= last_message.content %></div>
                 <% else %>
                   <div class="small text-muted">No messages yet</div>
                 <% end %>
