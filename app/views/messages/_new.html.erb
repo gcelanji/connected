@@ -11,7 +11,11 @@
   <% end %>
 
   <div class="mb-3">
-    <%= form.text_area :content, placeholder: "Type your message here...", class: 'form-control', rows: 1 %>
+    <%= form.text_area :content,
+                       placeholder: "Type your message here...",
+                       class: 'form-control',
+                       rows: 1,
+                       onkeydown: "if(event.key==='Enter' && !event.shiftKey){event.preventDefault(); this.form.requestSubmit();}" %>
   </div>
 
   <div class="d-flex justify-content-end">

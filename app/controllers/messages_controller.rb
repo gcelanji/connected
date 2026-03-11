@@ -5,6 +5,9 @@ class MessagesController < ApplicationController
 		@message.user = current_user
 
 		if @message.save
+			@sent_message = @message
+			@message = @conversation.messages.build
+
 			respond_to do |format|
 				format.html { redirect_to @conversation }
 				format.turbo_stream
