@@ -14,18 +14,28 @@ export default class extends Controller {
 
   disconnect() {
     if (this.observer) this.observer.disconnect();
+    if (this.markReadTimeout) clearTimeout(this.markReadTimeout);
   }
 
   updateConversation() {
     this.element.scrollTop = this.element.scrollHeight;
-    this.markRead();
+    this.scheduleMarkRead();
+  }
+
+  scheduleMarkRead() {
+    if (this.markReadTimeout) clearTimeout(this.markReadTimeout);
+
+    this.markReadTimeout = setTimeout(() => {
+      this.markRead();
+    }, 200);
   }
 
   markRead() {
     fetch(this.markReadUrlValue, {
       method: "PATCH",
       headers: {
-        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+        "Accept": "application/json"
       },
       credentials: "same-origin"
     });

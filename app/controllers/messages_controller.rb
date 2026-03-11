@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
 	def create
-		@conversation = Conversation.find(params[:conversation_id])
+		@conversation = current_user.conversations.find(params[:conversation_id])
 		@message = @conversation.messages.build(message_params)
 		@message.user = current_user
 
@@ -14,8 +14,8 @@ class MessagesController < ApplicationController
 			end
 		else
 			respond_to do |format|
-				format.html { redirect_to @conversation }
-				format.turbo_stream { head :unprocessable_entity }
+				format.html { render "conversations/show", status: :unprocessable_entity }
+				format.turbo_stream { render "conversations/show", status: :unprocessable_entity }
 			end
 		end
 	end

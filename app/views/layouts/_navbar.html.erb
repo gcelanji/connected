@@ -12,16 +12,18 @@
         <li class="nav-item">
           <%= link_to conversations_path, class: "nav-link #{current_class?(conversations_path)}" do %>
             Conversations
-            <% if current_user.unread_messages_count > 0 %>
-              <span class="badge bg-danger rounded-pill ms-1"><%= current_user.unread_messages_count %></span>
+            <% unread_messages_count = current_user.unread_messages_count %>
+            <% if unread_messages_count > 0 %>
+              <span class="badge bg-danger rounded-pill ms-1"><%= unread_messages_count %></span>
             <% end %>
           <% end %>
         </li>
         <li class="nav-item">
           <%= link_to connections_path, class: "nav-link #{current_class?(connections_path)}" do %>
             Connections
-            <% if current_user.pending_connections_count > 0 %>
-              <span class="badge bg-danger rounded-pill ms-1"><%= current_user.pending_connections_count %></span>
+            <% pending_connections_count = current_user.pending_connections_count %>
+            <% if pending_connections_count > 0 %>
+              <span class="badge bg-danger rounded-pill ms-1"><%= pending_connections_count %></span>
             <% end %>
           <% end %>
         </li>

@@ -10,8 +10,8 @@
           <ul class="list-group list-group-flush">
             <% @conversations.each do |conversation| %>
               <% title = conversation.name.presence || conversation.users.where.not(id: current_user.id).map(&:full_name).join(', ').presence || 'Conversation' %>
-              <% last_message = conversation.messages.max_by(&:created_at) %>
-              <% unread_count = conversation.messages.count { |message| !message.read && message.user_id != current_user.id } %>
+              <% last_message = conversation.messages.order(created_at: :desc).first %>
+              <% unread_count = conversation.messages.where(read: false).where.not(user_id: current_user.id).count %>
 
               <li class="list-group-item px-2 py-3">
                 <div class="d-flex justify-content-between align-items-start">
@@ -49,7 +49,15 @@
             <% @connections.each do |connection| %>
               <div class="list-group-item d-flex justify-content-between align-items-center">
                 <span><%= connection.full_name %></span>
-                <%= link_to "Message", conversations_path(user_id: connection.id), method: :post, class: 'btn btn-sm btn-main-custom' %>
+                <% conversation = Conversation.between([current_user.id, connection.id]) %>
+
+                <% if conversation %>
+                  <%= link_to "Message", conversation_path(conversation), 
+                      class: 'btn btn-sm btn-main-custom' %>
+                <% else %>
+                  <%= link_to "Message", conversations_path(user_id: connection.id), 
+                      method: :post, class: 'btn btn-sm btn-main-custom' %>
+                <% end %>
               </div>
             <% end %>
           </div>

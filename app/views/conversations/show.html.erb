@@ -14,7 +14,9 @@
              data-conversations-mark-read-url-value="<%= mark_read_conversation_path(@conversation) %>">
           <div id="messages-list">
             <% if @messages.empty? %>
-              <p class="mb-0 text-muted">No messages yet for this conversation.</p>
+              <div id="no-messages-placeholder">
+                <p class="mb-0 text-muted">No messages yet for this conversation.</p>
+              </div>
             <% else %>
               <div>
                 <% @messages.each do |message| %>
