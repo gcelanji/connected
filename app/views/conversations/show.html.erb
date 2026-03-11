@@ -1,6 +1,6 @@
 <h5 class="app-container mx-auto mt-5">Conversations</h5>
 
-<%= turbo_stream_from [@conversation] %>
+<%= turbo_stream_from [current_user, @conversation] %>
 
 <div class="app-container mx-auto mt-3">
   <div class="row g-3">

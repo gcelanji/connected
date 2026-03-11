@@ -13,9 +13,10 @@ class MessagesController < ApplicationController
 				format.turbo_stream
 			end
 		else
-			@messages = @conversation.messages.includes(:user).order(:created_at)
-			@conversations = current_user.conversations.includes(:users, messages: :user).order(updated_at: :desc)
-			render 'conversations/show'
+			respond_to do |format|
+				format.html { redirect_to @conversation }
+				format.turbo_stream { head :unprocessable_entity }
+			end
 		end
 	end
 

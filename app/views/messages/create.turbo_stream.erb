@@ -1,10 +1,12 @@
 <%= turbo_stream.append "messages-list", partial: "messages/message", locals: { message: @sent_message, user: current_user } %>
 
-<%= turbo_stream.replace "new-message-form", partial: "messages/new" %>
+<%= turbo_stream.update "new-message-form", partial: "messages/new" %>
 
-<% Turbo::StreamsChannel.broadcast_append_to(
-	[@conversation],
-	target: "messages-list",
-	partial: "messages/message",
-	locals: { message: @sent_message, user: nil }
-) %>
+<% @conversation.users.where.not(id: current_user.id).each do |participant| %>
+	<% Turbo::StreamsChannel.broadcast_append_to(
+		[participant, @conversation],
+		target: "messages-list",
+		partial: "messages/message",
+		locals: { message: @sent_message, user: participant }
+	) %>
+<% end %>
