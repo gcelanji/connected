@@ -1,17 +1,15 @@
 class ConversationsController < ApplicationController
   before_action :set_conversations
+  before_action :set_conversation, only: [:show, :destroy, :mark_read]
 
   def index
     @connections = current_user.active_connections
   end
 
   def show
-    @conversation = @conversations.find(params[:id])
     @messages = @conversation.messages.sort_by(&:created_at)
     @message = @conversation.messages.build
-    
-    # Mark all unread messages from others as read
-    @conversation.messages.where.not(user_id: current_user.id).where(read: false).update_all(read: true)
+    mark_messages_read
   end
 
   def create
@@ -28,16 +26,28 @@ class ConversationsController < ApplicationController
   end
 
   def destroy
-    @conversation = @conversations.find(params[:id])
     @conversation.destroy
     redirect_to conversations_path, notice: "Conversation deleted successfully."
   end
 
+  def mark_read
+    mark_messages_read
+    head :ok
+  end
+
   private
+
+  def set_conversation
+    @conversation = @conversations.find(params[:id])
+  end
 
   def set_conversations
     @conversations = current_user.conversations
                                  .includes(:users, messages: :user)
                                  .order(updated_at: :desc)
+  end
+
+  def mark_messages_read
+    @conversation.messages.where.not(user_id: current_user.id).where(read: false).update_all(read: true)
   end
 end

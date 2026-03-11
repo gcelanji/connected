@@ -1,10 +1,14 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  connect() {
-    this.scrollToBottom();
+  static values = { markReadUrl: String }
 
-    this.observer = new MutationObserver(() => this.scrollToBottom());
+  connect() {
+    this.updateConversation();
+
+    this.observer = new MutationObserver(() => {
+      this.updateConversation();
+    });
     this.observer.observe(this.element, { childList: true, subtree: true });
   }
 
@@ -12,7 +16,19 @@ export default class extends Controller {
     if (this.observer) this.observer.disconnect();
   }
 
-  scrollToBottom() {
+  updateConversation() {
     this.element.scrollTop = this.element.scrollHeight;
+    this.markRead();
+  }
+
+  markRead() {
+    const token = document.querySelector('meta[name="csrf-token"]')?.content;
+    if (!token || !this.hasMarkReadUrlValue) return;
+
+    fetch(this.markReadUrlValue, {
+      method: "PATCH",
+      headers: { "X-CSRF-Token": token },
+      credentials: "same-origin"
+    });
   }
 }

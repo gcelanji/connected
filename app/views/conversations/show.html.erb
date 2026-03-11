@@ -1,14 +1,17 @@
-<h5 class="app-container mx-auto mt-5">Conversations</h5>
+<h5 class="app-container mx-auto mt-5"><%= link_to "Conversations", conversations_path, class: "text-decoration-none text-dark" %></h5>
 
 <%= turbo_stream_from [current_user, @conversation] %>
 
 <div class="app-container mx-auto mt-3">
   <div class="row g-3">
-    <%= render 'sidebar' %>
-
-    <div class="col-12 col-md-8">
+    <div class="col-12">
       <div class="bg-white shadow rounded p-3 d-flex flex-column conversation-panel">
-        <div class="messages-container" data-controller="conversations">
+        <h6 class="mb-3"><%= @conversation.name.presence || @conversation.users.where.not(id: current_user.id).map(&:full_name).join(', ').presence %></h6>
+        <hr class="mt-0 mb-3">
+
+           <div class="messages-container"
+             data-controller="conversations"
+             data-conversations-mark-read-url-value="<%= mark_read_conversation_path(@conversation) %>">
           <div id="messages-list">
             <% if @messages.empty? %>
               <p class="mb-0 text-muted">No messages yet for this conversation.</p>

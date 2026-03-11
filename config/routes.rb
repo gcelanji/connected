@@ -19,6 +19,10 @@ Rails.application.routes.draw do
   end
 
   resources :conversations, only: [:index, :show, :create, :destroy] do
+    member do
+      patch :mark_read
+    end
+
     resources :messages, only: [:create]
   end
 end
