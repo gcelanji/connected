@@ -22,12 +22,11 @@ export default class extends Controller {
   }
 
   markRead() {
-    const token = document.querySelector('meta[name="csrf-token"]')?.content;
-    if (!token || !this.hasMarkReadUrlValue) return;
-
     fetch(this.markReadUrlValue, {
       method: "PATCH",
-      headers: { "X-CSRF-Token": token },
+      headers: {
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+      },
       credentials: "same-origin"
     });
   }
