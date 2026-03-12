@@ -1,0 +1,12 @@
+<%= turbo_stream.remove "no-messages-placeholder" %>
+<%= turbo_stream.append "messages-list", partial: "messages/message", locals: { message: @sent_message, user: current_user } %>
+<%= turbo_stream.update "new-message-form", partial: "messages/new" %>
+
+<% @conversation.users.where.not(id: current_user.id).each do |participant| %>
+	<% Turbo::StreamsChannel.broadcast_append_to(
+		[participant, @conversation],
+		target: "messages-list",
+		partial: "messages/message",
+		locals: { message: @sent_message, user: participant }
+	) %>
+<% end %>

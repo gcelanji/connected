@@ -13,6 +13,8 @@ class User < ApplicationRecord
   has_many :shared_posts, dependent: :destroy
   has_many :connections, foreign_key: :user_id
   has_many :connected_users, foreign_key: :connection_id, class_name: 'Connection'
+  has_many :conversation_users, dependent: :destroy
+  has_many :conversations, through: :conversation_users
 
   def full_name
     "#{first_name} #{last_name}"
@@ -37,6 +39,18 @@ class User < ApplicationRecord
 
   def connection_from(user)
       connections.where(connection: user).first || connected_users.where(user: user).first
+  end
+
+  def unread_messages_count
+    Message.joins(conversation: :users)
+           .where(users: { id: id })
+           .where.not(user_id: id)
+           .where(read: false)
+           .count
+  end
+
+  def pending_connections_count
+    connected_users.pending.count
   end
 
   def self.ransackable_attributes(auth_object = nil)
